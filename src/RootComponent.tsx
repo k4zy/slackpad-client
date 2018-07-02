@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Button, Image } from 'react-native';
+import { StyleSheet, Text, View, Button, Image, TouchableHighlight } from 'react-native';
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
+import { Ionicons } from '@expo/vector-icons';
+import DrawerComponent from './DrawerComponent';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,14 +29,14 @@ const styles = StyleSheet.create({
 const headerView = () => {
   return (
     <View style={styles.header_container}>
-      <Image
-        style={{ width: 30, height: 30 }}
-        source={{
-          uri:
-            'https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2016-04-13/34302871409_9799185b8d4e529cb8c4_132.png',
+      <TouchableHighlight
+        onPress={() => {
+          // props.navigation.toggleDrawer();
         }}
-      />
-      <Text style={styles.header_text}>Cookpad</Text>
+      >
+        <Ionicons name="md-menu" size={28} color="#eee" />
+      </TouchableHighlight>
+      <Text style={styles.header_text}>#general</Text>
     </View>
   );
 };
@@ -50,7 +52,7 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Home Screen</Text>
+        <Text>Home Screen!!!</Text>
       </View>
     );
   }
@@ -62,8 +64,11 @@ const MainStackNavigator = createStackNavigator({
   },
 });
 
-export default createDrawerNavigator({
-  Home: {
-    screen: MainStackNavigator,
+export default createDrawerNavigator(
+  {
+    Home: {
+      screen: MainStackNavigator,
+    },
   },
-});
+  { contentComponent: DrawerComponent },
+);
