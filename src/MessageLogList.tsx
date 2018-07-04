@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, FlatList, StyleSheet, Platform } from 'react-native';
-import MessageRowComponent from './MessageRowComponent';
+import MessageRow from './MessageRow';
 import MessageRepo, { Message } from './MessageRepo';
 
 interface Props {}
@@ -9,9 +9,9 @@ interface State {
   messages: Message[];
 }
 
-export default class ChatListComponent extends React.Component<Props, State> {
+export default class MessageLogList extends React.Component<Props, State> {
   private renderCell = ({ item }: { item: Message }) => {
-    return <MessageRowComponent message={item} />;
+    return <MessageRow message={item} />;
   };
 
   constructor(props: Props) {

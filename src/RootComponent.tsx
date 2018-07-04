@@ -2,9 +2,9 @@ import * as React from 'react';
 import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
-import DrawerComponent from './DrawerComponent';
-import ChatListComponent from './ChatListComponent';
-import MessageBoxComponent from './MessageBoxComponent';
+import DrawerView from './DrawerView';
+import MessageLogList from './MessageLogList';
+import MessageBox from './MessageBox';
 
 const styles = StyleSheet.create({
   container: {
@@ -51,8 +51,8 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <ChatListComponent />
-        <MessageBoxComponent />
+        <MessageLogList />
+        <MessageBox />
       </View>
     );
   }
@@ -70,5 +70,5 @@ export default createDrawerNavigator(
       screen: MainStackNavigator,
     },
   },
-  { contentComponent: DrawerComponent },
+  { contentComponent: DrawerView },
 );
