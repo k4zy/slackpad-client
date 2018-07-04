@@ -1,2 +1,2 @@
-import RootComponent from './dist/RootComponent';
+import RootComponent from './dist/component/RootComponent';
 export default RootComponent;
