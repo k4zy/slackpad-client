@@ -3,13 +3,12 @@ import { StyleSheet, Text, View, Button, Image, TouchableHighlight } from 'react
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import DrawerComponent from './DrawerComponent';
+import ChatListComponent from './ChatListComponent';
+import MessageBoxComponent from './MessageBoxComponent';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#eee',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#fff',
   },
   header_container: {
     flex: 1,
@@ -51,8 +50,11 @@ class HomeScreen extends React.Component {
   };
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Home Screen!!!</Text>
+      <View>
+        <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}>
+          <MessageBoxComponent />
+        </View>
+        <ChatListComponent />
       </View>
     );
   }
