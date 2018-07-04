@@ -1,53 +1,20 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+import { View } from 'react-native';
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
-import { Ionicons } from '@expo/vector-icons';
 import DrawerView from './DrawerView';
 import MessageLogList from './MessageLogList';
 import MessageBox from './MessageBox';
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff',
-  },
-  header_container: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 18,
-  },
-  header_text: {
-    color: '#eee',
-    fontWeight: 'bold',
-    paddingLeft: 16,
-    fontSize: 18,
-  },
-});
-
-const headerView = () => {
-  return (
-    <View style={styles.header_container}>
-      <TouchableHighlight
-        onPress={() => {
-          // props.navigation.toggleDrawer();
-        }}
-      >
-        <Ionicons name="md-menu" size={28} color="#eee" />
-      </TouchableHighlight>
-      <Text style={styles.header_text}>#general</Text>
-    </View>
-  );
-};
+import HeaderView from './HeaderView';
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
-    headerTitle: headerView,
+    headerTitle: HeaderView,
     headerStyle: {
       backgroundColor: '#2d2d2d',
     },
     headerTintColor: '#fff',
   };
+
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -66,9 +33,9 @@ const MainStackNavigator = createStackNavigator({
 
 export default createDrawerNavigator(
   {
-    Home: {
-      screen: MainStackNavigator,
-    },
+    Home: { screen: MainStackNavigator },
   },
-  { contentComponent: DrawerView },
+  {
+    contentComponent: DrawerView,
+  },
 );
