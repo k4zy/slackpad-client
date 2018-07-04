@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import { Message } from './MessageRepo';
+import { Message } from '../MessageRepo';
 const moment = require('moment');
 
 interface Props {
