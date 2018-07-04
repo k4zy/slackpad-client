@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
+import { View, TextInput, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-export default class MessageBoxComponent extends React.Component {
+interface Props {}
+
+export default class MessageBoxComponent extends React.Component<Props> {
   render() {
     return (
       <View style={styles.message_box_container}>

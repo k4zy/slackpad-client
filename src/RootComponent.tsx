@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Button, Image, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import DrawerComponent from './DrawerComponent';
@@ -50,11 +50,9 @@ class HomeScreen extends React.Component {
   };
   render() {
     return (
-      <View>
-        <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}>
-          <MessageBoxComponent />
-        </View>
+      <View style={{ flex: 1 }}>
         <ChatListComponent />
+        <MessageBoxComponent />
       </View>
     );
   }

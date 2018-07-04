@@ -24,7 +24,6 @@ export default class ChatListComponent extends React.Component<Props, State> {
   render() {
     return (
       <FlatList
-        contentContainerStyle={{ paddingBottom: 50 }}
         style={styles.chat_list}
         showsVerticalScrollIndicator={false}
         removeClippedSubviews={Platform.select({ android: true, ios: false })}
