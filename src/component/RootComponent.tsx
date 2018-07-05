@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
 import DrawerView from './DrawerView';
 import MessageLogList from './MessageLogList';
-import MessageBox from './MessageBox';
+import MessageInputBox from './MessageInputBox';
 import HeaderView from './HeaderView';
 
 class HomeScreen extends React.Component {
@@ -19,7 +19,7 @@ class HomeScreen extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <MessageLogList />
-        <MessageBox />
+        <MessageInputBox />
       </View>
     );
   }

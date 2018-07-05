@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 interface Props {}
 
-export default class MessageBox extends React.Component<Props> {
+export default class MessageInputBox extends React.Component<Props> {
   render() {
     return (
       <View style={styles.message_box_container}>
