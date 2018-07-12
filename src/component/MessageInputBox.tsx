@@ -1,16 +1,26 @@
 import * as React from 'react';
-import { View, TextInput, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { View, TextInput, StyleSheet, TouchableHighlight } from 'react-native';
+import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
+// import { Camera, Permissions } from 'expo';
+import CameraScreen from '../screen/CameraScreen';
 
-interface Props {}
+interface Props {
+  navigation: NavigationScreenProp<NavigationRoute<any>, any>;
+}
 
 export default class MessageInputBox extends React.Component<Props> {
   render() {
     return (
       <View style={styles.message_box_container}>
-        <View style={{ justifyContent: 'center', alignContent: 'center' }}>
+        <TouchableHighlight
+          onPress={() => {
+            this.props.navigation.navigate(CameraScreen.routeName);
+          }}
+          style={{ justifyContent: 'center', alignContent: 'center' }}
+        >
           <Ionicons name="md-camera" size={28} color="#2d2d2d" style={styles.action_icon} />
-        </View>
+        </TouchableHighlight>
         <TextInput style={styles.message_input_area} placeholder="Message for #general" />
         <View style={{ justifyContent: 'center', alignContent: 'center' }}>
           <Ionicons name="md-send" size={28} color="#2d2d2d" style={styles.action_icon} />
