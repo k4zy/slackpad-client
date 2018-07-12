@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View, FlatList, StyleSheet, Platform } from 'react-native';
 import MessageRow from './MessageRow';
-import MessageRepo, { Message } from '../MessageRepo';
+import MessageRepo, { Message } from '../repository/MessageRepo';
 
 interface Props {}
 
