@@ -16,11 +16,15 @@ export default class MessageLogList extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    const messages = MessageRepo.fetch();
-    this.state = {
-      messages,
-    };
+    this.init();
+    this.state = { messages: [] };
   }
+
+  async init() {
+    const messages = await MessageRepo.fetch();
+    this.setState({ messages });
+  }
+
   render() {
     return (
       <FlatList

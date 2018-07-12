@@ -4,12 +4,15 @@ import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 // import { Camera, Permissions } from 'expo';
 import CameraScreen from '../screen/CameraScreen';
+import MessageRepo from '../repository/MessageRepo';
 
 interface Props {
   navigation: NavigationScreenProp<NavigationRoute<any>, any>;
 }
 
 export default class MessageInputBox extends React.Component<Props> {
+  private message: string = '';
+
   render() {
     return (
       <View style={styles.message_box_container}>
@@ -25,11 +28,18 @@ export default class MessageInputBox extends React.Component<Props> {
           selectionColor="#FF9933"
           underlineColorAndroid="#FF9933"
           style={styles.message_input_area}
+          onChangeText={text => (this.message = text)}
           placeholder="#generalに投稿する"
         />
-        <View style={{ justifyContent: 'center', alignContent: 'center' }}>
+        <TouchableHighlight
+          onPress={async () => {
+            //Todo: ちゃんと引数を渡す
+            await MessageRepo.post(this.message, '#genaral', 'kazy');
+          }}
+          style={{ justifyContent: 'center', alignContent: 'center' }}
+        >
           <Ionicons name="md-send" size={28} color="#2d2d2d" style={styles.action_icon} />
-        </View>
+        </TouchableHighlight>
       </View>
     );
   }

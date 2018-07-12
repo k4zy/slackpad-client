@@ -7,8 +7,12 @@ export interface Message {
   postedAt: string;
 }
 export default class MessageRepo {
-  static fetch = () => {
-    return MessageRepo.generateDummyData(100);
+  static post = async (message: string, channel: string, userName: string): Promise<void> => {
+    Promise.resolve();
+  };
+
+  static fetch = async () => {
+    return Promise.resolve(MessageRepo.generateDummyData(100));
   };
 
   static kazyDummy = {
