@@ -52,7 +52,6 @@ export default class LoginScreen extends React.Component<Props> {
       index: 0,
       actions: [NavigationActions.navigate({ routeName: HomeScreen.routeName, params })],
     });
-    console.log(JSON.stringify(this.props));
     this.props.navigation.dispatch(resetAction);
   };
 }
