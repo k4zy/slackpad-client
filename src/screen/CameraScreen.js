@@ -3,7 +3,7 @@ import { Text, View, TouchableOpacity } from 'react-native';
 import { Camera, Permissions } from 'expo';
 
 export default class CameraScreen extends React.Component {
-  static routeName = '/screen/CameraScreen';
+  static routeName = '/CameraScreen';
   state = {
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,

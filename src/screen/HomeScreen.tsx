@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default class HomeScreen extends React.Component<Props> {
-  static routeName = '/RootComponent';
+  static routeName = '/HomeScreen';
   static navigationOptions = {};
 
   render() {

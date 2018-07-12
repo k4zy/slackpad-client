@@ -4,10 +4,14 @@ import DrawerView from './DrawerView';
 import HeaderView from './HeaderView';
 import CameraScreen from '../screen/CameraScreen';
 import HomeScreen from '../screen/HomeScreen';
+import LoginScreen from '../screen/LoginScreen';
 
 type Navigation = NavigationScreenProp<NavigationRoute<any>, any>;
 
 const MainStackNavigator = createStackNavigator({
+  [LoginScreen.routeName]: {
+    screen: LoginScreen,
+  },
   [HomeScreen.routeName]: {
     screen: HomeScreen,
     navigationOptions: ({ navigation }: { navigation: Navigation }) => ({
