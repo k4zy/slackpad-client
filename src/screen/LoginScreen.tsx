@@ -27,10 +27,9 @@ interface Props {
 
 export default class LoginScreen extends React.Component<Props> {
   static routeName = '/LoginScreen';
-  static navigationOptions = {};
+  private userName: string = '名無しさん';
 
   render() {
-    const navigation = this.props.navigation;
     return (
       <KeyboardAvoidingView style={styles.background} behavior="padding">
         <Image style={styles.image} source={require('../../assets/cookpad.png')} />
@@ -40,18 +39,21 @@ export default class LoginScreen extends React.Component<Props> {
           selectionColor="#FF9933"
           underlineColorAndroid="#FF9933"
           placeholder="名前を入力して下さい"
+          onChangeText={text => (this.userName = text)}
         />
         <Button title="ログイン" color="#FF9933" onPress={this.navigateHomeWithoutStack} />
       </KeyboardAvoidingView>
     );
   }
 
-  private navigateHomeWithoutStack() {
+  navigateHomeWithoutStack() {
+    const params = { userName: this.userName };
     const resetAction = StackActions.reset({
       index: 0,
-      actions: [NavigationActions.navigate({ routeName: HomeScreen.routeName })],
+      actions: [NavigationActions.navigate({ routeName: HomeScreen.routeName, params })],
     });
-    this.props.navigation.dispatch(resetAction);
+    console.log(JSON.stringify(this.props));
+    // this.props.navigation.dispatch(resetAction);
   }
 }
 

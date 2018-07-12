@@ -10,9 +10,20 @@ interface Props {
   navigation: Navigation;
 }
 
-export default class HomeScreen extends React.Component<Props> {
+interface State {
+  userName: string;
+}
+
+export default class HomeScreen extends React.Component<Props, State> {
   static routeName = '/HomeScreen';
   static navigationOptions = {};
+
+  constructor(props: Props) {
+    super(props);
+    const userName = props.navigation.state.params.userName;
+    console.log(userName);
+    this.state = { userName };
+  }
 
   render() {
     return (
