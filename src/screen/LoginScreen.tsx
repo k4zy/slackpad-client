@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {
+  KeyboardAvoidingView,
   TextInput,
   Text,
   Image,
@@ -10,7 +11,13 @@ import {
   TextStyle,
   ImageStyle,
 } from 'react-native';
-import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
+import {
+  NavigationScreenProp,
+  NavigationRoute,
+  StackActions,
+  NavigationActions,
+} from 'react-navigation';
+import HomeScreen from '../screen/HomeScreen';
 
 type Navigation = NavigationScreenProp<NavigationRoute<any>, any>;
 
@@ -23,8 +30,9 @@ export default class LoginScreen extends React.Component<Props> {
   static navigationOptions = {};
 
   render() {
+    const navigation = this.props.navigation;
     return (
-      <View style={styles.background}>
+      <KeyboardAvoidingView style={styles.background} behavior="padding">
         <Image style={styles.image} source={require('../../assets/cookpad.png')} />
         <Text style={styles.title}>Slackpadにようこそ!</Text>
         <TextInput
@@ -33,9 +41,17 @@ export default class LoginScreen extends React.Component<Props> {
           underlineColorAndroid="#FF9933"
           placeholder="名前を入力して下さい"
         />
-        <Button title="ログイン" color="#FF9933" onPress={() => {}} />
-      </View>
+        <Button title="ログイン" color="#FF9933" onPress={this.navigateHomeWithoutStack} />
+      </KeyboardAvoidingView>
     );
+  }
+
+  private navigateHomeWithoutStack() {
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: HomeScreen.routeName })],
+    });
+    this.props.navigation.dispatch(resetAction);
   }
 }
 
@@ -44,14 +60,6 @@ interface Styles {
   image: ImageStyle;
   title: TextStyle;
   input: TextStyle;
-
-  // modal: ViewStyle;
-  // modalMessage: TextStyle;
-  // recipeDetails: ViewStyle;
-  // imageWrapper: ViewStyle;
-  // recipeTitle: TextStyle;
-  // buttonRow: ViewStyle;
-  // buttonContainer: ViewStyle;
 }
 
 const styles = StyleSheet.create<Styles>({
@@ -59,7 +67,7 @@ const styles = StyleSheet.create<Styles>({
     flex: 1,
     backgroundColor: '#fff',
     alignContent: 'center',
-    paddingTop: 50,
+    paddingTop: 20,
     paddingHorizontal: 30,
   },
   image: {
