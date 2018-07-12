@@ -27,12 +27,13 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@types/expo__vector-icons": "^6.2.2",
     "expo": "^27.0.1",
     "lodash.sample": "~4.2.1",
     "moment": "^2.22.2",
     "react": "16.3.1",
     "react-native": "~0.55.2",
-    "react-navigation":"~2.5.5"
+    "react-navigation": "~2.5.5"
   },
   "prettier": {
     "singleQuote": true,
