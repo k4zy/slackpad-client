@@ -16,9 +16,7 @@ const MainStackNavigator = createStackNavigator({
     screen: HomeScreen,
     navigationOptions: ({ navigation }: { navigation: Navigation }) => ({
       headerTitle: HeaderView({
-        onPress: () => {
-          navigation.toggleDrawer();
-        },
+        navigation,
       }),
       headerStyle: {
         backgroundColor: '#2d2d2d',

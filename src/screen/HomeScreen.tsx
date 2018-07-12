@@ -8,21 +8,27 @@ type Navigation = NavigationScreenProp<NavigationRoute<any>, any>;
 
 interface Props {
   navigation: Navigation;
+  channel?: string;
 }
 
 interface State {
   userName: string;
+  channel?: string;
 }
 
 export default class HomeScreen extends React.Component<Props, State> {
   static routeName = '/HomeScreen';
-  static navigationOptions = {};
 
   constructor(props: Props) {
     super(props);
-    const userName = props.navigation.state.params.userName;
-    console.log(userName);
-    this.state = { userName };
+    const params = props.navigation.state.params;
+    const userName = params.userName;
+    if (params && params.channel) {
+      const channel: string = params.channel;
+      this.state = { channel, userName };
+    } else {
+      this.state = { channel: '#genaral', userName };
+    }
   }
 
   render() {

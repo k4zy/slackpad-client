@@ -1,21 +1,27 @@
 import * as React from 'react';
 import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
+
+type Navigation = NavigationScreenProp<NavigationRoute<any>, any>;
+
 interface Props {
-  onPress: () => void;
+  navigation: Navigation;
 }
 export default (props: Props) => {
+  const navigation = props.navigation;
+  const params = props.navigation.state.params;
+  const channelName = params.channelName ? params.channelName : '#general';
   return (
     <View style={styles.header_container}>
       <TouchableHighlight
         onPress={() => {
-          props.onPress();
-          // props.navigation.toggleDrawer();
+          navigation.toggleDrawer();
         }}
       >
         <Ionicons name="md-menu" size={28} color="#eee" />
       </TouchableHighlight>
-      <Text style={styles.header_text}>#general</Text>
+      <Text style={styles.header_text}>{channelName}</Text>
     </View>
   );
 };
