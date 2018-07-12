@@ -46,15 +46,15 @@ export default class LoginScreen extends React.Component<Props> {
     );
   }
 
-  navigateHomeWithoutStack() {
+  private navigateHomeWithoutStack = () => {
     const params = { userName: this.userName };
     const resetAction = StackActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: HomeScreen.routeName, params })],
     });
     console.log(JSON.stringify(this.props));
-    // this.props.navigation.dispatch(resetAction);
-  }
+    this.props.navigation.dispatch(resetAction);
+  };
 }
 
 interface Styles {
