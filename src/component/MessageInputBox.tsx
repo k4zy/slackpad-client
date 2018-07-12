@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, TextInput, StyleSheet, TouchableHighlight } from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 // import { Camera, Permissions } from 'expo';
@@ -16,14 +16,17 @@ export default class MessageInputBox extends React.Component<Props> {
   render() {
     return (
       <View style={styles.message_box_container}>
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={() => {
             this.props.navigation.navigate(CameraScreen.routeName);
           }}
-          style={{ justifyContent: 'center', alignContent: 'center' }}
+          style={{
+            justifyContent: 'center',
+            alignContent: 'center',
+          }}
         >
           <Ionicons name="md-camera" size={28} color="#2d2d2d" style={styles.action_icon} />
-        </TouchableHighlight>
+        </TouchableOpacity>
         <TextInput
           selectionColor="#FF9933"
           underlineColorAndroid="#FF9933"
@@ -31,7 +34,7 @@ export default class MessageInputBox extends React.Component<Props> {
           onChangeText={text => (this.message = text)}
           placeholder="#generalに投稿する"
         />
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={async () => {
             //Todo: ちゃんと引数を渡す
             await MessageRepo.post(this.message, '#genaral', 'kazy');
@@ -39,7 +42,7 @@ export default class MessageInputBox extends React.Component<Props> {
           style={{ justifyContent: 'center', alignContent: 'center' }}
         >
           <Ionicons name="md-send" size={28} color="#2d2d2d" style={styles.action_icon} />
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
     );
   }
