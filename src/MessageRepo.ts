@@ -1,4 +1,4 @@
-import sample from 'lodash.sample';
+import { sample } from 'lodash-es';
 export interface Message {
   id: number;
   plainText: string;
@@ -37,8 +37,8 @@ export default class MessageRepo {
 
   static generateDummyData = (size: number): Message[] => {
     const dummyList = [MessageRepo.kazyDummy, MessageRepo.gfxDummy, MessageRepo.kokubunDummy];
-    return Array.from(new Array(size), (val, index) => index).map(index => {
-      const message = sample(dummyList);
+    return Array.from(new Array(size), (_, index) => index).map(index => {
+      const message = sample(dummyList)!;
       message.id = index;
       return message;
     });
