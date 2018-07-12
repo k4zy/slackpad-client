@@ -25,6 +25,7 @@ export default class MessageLogList extends React.Component<Props, State> {
     return (
       <FlatList
         style={styles.chat_list}
+        keyExtractor={(item: Message, index: number) => `${index}=${item.id}`}
         showsVerticalScrollIndicator={false}
         removeClippedSubviews={Platform.select({ android: true, ios: false })}
         data={this.state.messages}

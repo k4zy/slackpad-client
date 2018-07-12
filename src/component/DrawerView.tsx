@@ -52,6 +52,7 @@ export default class DrawerView extends React.Component<Props, State> {
           <FlatList
             style={styles.channel_list}
             showsVerticalScrollIndicator={false}
+            keyExtractor={(item: Channel) => item.name}
             removeClippedSubviews={Platform.select({ android: true, ios: false })}
             data={this.state.channels}
             renderItem={this.renderCell}
