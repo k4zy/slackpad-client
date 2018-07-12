@@ -21,7 +21,12 @@ export default class MessageInputBox extends React.Component<Props> {
         >
           <Ionicons name="md-camera" size={28} color="#2d2d2d" style={styles.action_icon} />
         </TouchableHighlight>
-        <TextInput style={styles.message_input_area} placeholder="Message for #general" />
+        <TextInput
+          selectionColor="#FF9933"
+          underlineColorAndroid="#FF9933"
+          style={styles.message_input_area}
+          placeholder="#generalに投稿する"
+        />
         <View style={{ justifyContent: 'center', alignContent: 'center' }}>
           <Ionicons name="md-send" size={28} color="#2d2d2d" style={styles.action_icon} />
         </View>
