@@ -1,13 +1,15 @@
 import * as React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
-import { Camera, Permissions } from 'expo';
+import { Text, View, TouchableOpacity, CameraRoll } from 'react-native';
+import { Camera, Permissions, CameraObject } from 'expo';
 
 export default class CameraScreen extends React.Component {
   static routeName = '/CameraScreen';
   state = {
     hasCameraPermission: null,
-    type: Camera.Constants.Type.back,
+    photoId: 1,
   };
+
+  camera: CameraObject | null = null;
 
   async componentWillMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -23,7 +25,14 @@ export default class CameraScreen extends React.Component {
     } else {
       return (
         <View style={{ flex: 1 }}>
-          <Camera style={{ flex: 1 }} type={this.state.type}>
+          <Camera
+            style={{ flex: 1 }}
+            type={Camera.Constants.Type.back}
+            // ref={this.camera}
+            ref={(camera: any) => {
+              this.camera = camera;
+            }}
+          >
             <View
               style={{
                 flex: 1,
@@ -33,20 +42,31 @@ export default class CameraScreen extends React.Component {
             >
               <TouchableOpacity
                 style={{
-                  flex: 0.1,
                   alignSelf: 'flex-end',
-                  alignItems: 'center',
+                  flex: 1,
+                  height: 80,
+                  justifyContent: 'center',
+                  alignContent: 'center',
+                  backgroundColor: '#62b5a5',
                 }}
-                onPress={() => {
-                  this.setState({
-                    type:
-                      this.state.type === Camera.Constants.Type.back
-                        ? Camera.Constants.Type.front
-                        : Camera.Constants.Type.back,
-                  });
+                onPress={async () => {
+                  if (this.camera) {
+                    const picture = await this.camera.takePictureAsync({});
+                    const imageUri = await CameraRoll.saveToCameraRoll(picture.uri, 'photo');
+                    console.log(imageUri);
+                  }
                 }}
               >
-                <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
+                <Text
+                  style={{
+                    fontSize: 24,
+                    fontWeight: 'bold',
+                    alignSelf: 'center',
+                    color: 'white',
+                  }}
+                >
+                  Shoot
+                </Text>
               </TouchableOpacity>
             </View>
           </Camera>
