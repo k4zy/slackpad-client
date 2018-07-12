@@ -33,7 +33,7 @@ export default class MessageInputBox extends React.Component<Props> {
 const styles = StyleSheet.create({
   message_box_container: {
     flexDirection: 'row',
-    backgroundColor: '#eee',
+    backgroundColor: '#fff',
     paddingHorizontal: 5,
     elevation: 4,
     height: 50,

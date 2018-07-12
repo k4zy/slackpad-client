@@ -36,6 +36,7 @@ export default class MessageLogList extends React.Component<Props, State> {
 
 const styles = StyleSheet.create({
   chat_list: {
+    backgroundColor: '#fff',
     paddingHorizontal: 20,
   },
 });
