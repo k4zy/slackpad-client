@@ -1,11 +1,15 @@
 import * as React from 'react';
 import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-export default () => {
+interface Props {
+  onPress: () => void;
+}
+export default (props: Props) => {
   return (
     <View style={styles.header_container}>
       <TouchableHighlight
         onPress={() => {
+          props.onPress();
           // props.navigation.toggleDrawer();
         }}
       >
