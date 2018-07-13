@@ -16,11 +16,15 @@ export default class MessageLogList extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    this.init();
+    this.fetch();
     this.state = { messages: [] };
   }
 
-  async init() {
+  componentWillReceiveProps(props: Props) {
+    this.fetch();
+  }
+
+  async fetch() {
     const messages = await MessageRepo.fetch();
     this.setState({ messages });
   }

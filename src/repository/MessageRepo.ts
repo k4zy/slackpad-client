@@ -12,7 +12,7 @@ export default class MessageRepo {
   };
 
   static fetch = async () => {
-    return Promise.resolve(MessageRepo.generateDummyData(100));
+    return await MessageRepo.generateDummyData(20);
   };
 
   static kazyDummy = {
@@ -39,12 +39,13 @@ export default class MessageRepo {
     postedAt: '2018-11-11 10:15:26',
   };
 
-  static generateDummyData = (size: number): Message[] => {
+  static generateDummyData = async (size: number): Promise<Message[]> => {
     const dummyList = [MessageRepo.kazyDummy, MessageRepo.gfxDummy, MessageRepo.kokubunDummy];
-    return Array.from(new Array(size), (_, index) => index).map(index => {
+    const result = Array.from(new Array(size), (_, index) => index).map(index => {
       const message = sample(dummyList)!;
       message.id = index;
       return message;
     });
+    return result;
   };
 }
