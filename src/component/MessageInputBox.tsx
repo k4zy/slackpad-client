@@ -14,6 +14,8 @@ export default class MessageInputBox extends React.Component<Props> {
   private message: string = '';
 
   render() {
+    const params = this.props.navigation.state.params;
+    const channelName = params.channelName ? params.channelName : '#general';
     return (
       <View style={styles.message_box_container}>
         <TouchableOpacity
@@ -32,7 +34,7 @@ export default class MessageInputBox extends React.Component<Props> {
           underlineColorAndroid="#FF9933"
           style={styles.message_input_area}
           onChangeText={text => (this.message = text)}
-          placeholder="#generalに投稿する"
+          placeholder={`${channelName}に投稿する`}
         />
         <TouchableOpacity
           onPress={async () => {
