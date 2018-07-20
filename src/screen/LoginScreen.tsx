@@ -18,6 +18,7 @@ import {
   NavigationActions,
 } from 'react-navigation';
 import HomeScreen from '../screen/HomeScreen';
+import MessageStream from '../repository/MessageStream';
 
 type Navigation = NavigationScreenProp<NavigationRoute<any>, any>;
 
@@ -48,6 +49,7 @@ export default class LoginScreen extends React.Component<Props> {
 
   private navigateHomeWithoutStack = () => {
     const params = { userName: this.userName };
+    MessageStream.join(this.userName);
     const resetAction = StackActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: HomeScreen.routeName, params })],

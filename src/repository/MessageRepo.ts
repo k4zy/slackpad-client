@@ -1,4 +1,5 @@
 import ApiClient from './ApiClient';
+import MessageStream from './MessageStream';
 export interface Message {
   id: number;
   nickname: string;
@@ -6,8 +7,8 @@ export interface Message {
   created_at: string;
 }
 export default class MessageRepo {
-  static post = async (message: string, channel: string, userName: string): Promise<void> => {
-    Promise.resolve();
+  static post = (channel: string, message: string): void => {
+    MessageStream.sendMessage(channel, message);
   };
 
   static fetch = async (channelId: number, page = 0, perPage = 50): Promise<Message[]> => {

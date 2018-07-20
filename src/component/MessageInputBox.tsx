@@ -39,7 +39,7 @@ export default class MessageInputBox extends React.Component<Props> {
         <TouchableOpacity
           onPress={async () => {
             //Todo: ちゃんと引数を渡す
-            await MessageRepo.post(this.message, '#genaral', 'kazy');
+            MessageRepo.post(this.message, 'genaral');
           }}
           style={{ justifyContent: 'center', alignContent: 'center' }}
         >

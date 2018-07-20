@@ -1,6 +1,5 @@
 import { API_ENDPOINT } from './Endpoint';
 import { Channel } from './ChannelRepo';
-import { reject } from '../../node_modules/@types/lodash-es';
 import ApiClient from './ApiClient';
 
 export interface Channel {
