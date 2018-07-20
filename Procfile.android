@@ -1,4 +1,0 @@
-server: yarn start
-build: yarn build:watch
-log: yarn android:log
-emulator: $ANDROID_HOME/emulator/emulator '@ReactNativeCookpad'
