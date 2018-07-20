@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { Message } from '../repository/MessageRepo';
-const moment = require('moment');
+import { format, parse } from 'date-fns';
 
 interface Props {
   message: Message;
@@ -21,7 +21,7 @@ export default (props: Props) => {
       <View style={styles.right_container}>
         <View style={styles.status_container}>
           <Text style={styles.user_name}>{props.message.nickname}</Text>
-          <Text style={styles.posted_at}>{moment(props.message.created_at).format('LT')}</Text>
+          <Text style={styles.posted_at}>{format(parse(props.message.created_at), 'HH:mm')}</Text>
         </View>
         <Text>{props.message.message}</Text>
       </View>
