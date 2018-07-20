@@ -1,16 +1,17 @@
+import { API_ENDPOINT } from './Endpoint';
+import { Channel } from './ChannelRepo';
+import { reject } from '../../node_modules/@types/lodash-es';
+import ApiClient from './ApiClient';
+
 export interface Channel {
+  id: number;
   name: string;
+  created_at: string;
+  updated_at: string;
 }
 
 export default class ChannelRepo {
-  // Todo: APIリクエストに切り替える
-  static fetch = async (): Promise<Channel[]> => {
-    return Promise.resolve([
-      { name: '#genaral' },
-      { name: '#public' },
-      { name: '#typescript' },
-      { name: '#tech' },
-      { name: '#random' },
-    ]);
+  static fetchChannels = async (): Promise<Channel[]> => {
+    return await ApiClient.get<Channel[]>('channels');
   };
 }

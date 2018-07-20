@@ -30,7 +30,7 @@ export default class DrawerView extends React.Component<Props, State> {
   }
 
   async componentDidMount() {
-    const channels = await ChannelRepo.fetch();
+    const channels = await ChannelRepo.fetchChannels();
     this.setState({ channels });
   }
 

@@ -1,51 +1,20 @@
-import { sample } from 'lodash-es';
+import ApiClient from './ApiClient';
 export interface Message {
   id: number;
-  plainText: string;
-  userIcon: string;
-  userName: string;
-  postedAt: string;
+  nickname: string;
+  message: string;
+  created_at: string;
 }
 export default class MessageRepo {
   static post = async (message: string, channel: string, userName: string): Promise<void> => {
     Promise.resolve();
   };
 
-  static fetch = async () => {
-    return await MessageRepo.generateDummyData(20);
-  };
-
-  static kazyDummy = {
-    id: 1,
-    plainText: 'わいわい! いいですね',
-    userIcon: 'https://avatars3.githubusercontent.com/u/1908396',
-    userName: 'kazy',
-    postedAt: '2018-11-11 10:12:26',
-  };
-
-  static gfxDummy = {
-    id: 2,
-    plainText: 'Circle CI ってVMのメモリ増やせないのかな…。',
-    userIcon: 'https://avatars3.githubusercontent.com/u/101800',
-    userName: 'gfx',
-    postedAt: '2018-11-11 10:14:00',
-  };
-
-  static kokubunDummy = {
-    id: 3,
-    plainText: '古いRubyインストールしようとすると大体opensslで破滅して辛い',
-    userIcon: 'https://avatars0.githubusercontent.com/u/3138447',
-    userName: 'kokubun',
-    postedAt: '2018-11-11 10:15:26',
-  };
-
-  static generateDummyData = async (size: number): Promise<Message[]> => {
-    const dummyList = [MessageRepo.kazyDummy, MessageRepo.gfxDummy, MessageRepo.kokubunDummy];
-    const result = Array.from(new Array(size), (_, index) => index).map(index => {
-      const message = sample(dummyList)!;
-      message.id = index;
-      return message;
-    });
-    return result;
+  static fetch = async (channelId: number, page = 0, perPage = 50): Promise<Message[]> => {
+    const params = {
+      page,
+      per_page: perPage,
+    };
+    return await ApiClient.get<Message[]>(`/channels/${channelId}/messages`, params);
   };
 }

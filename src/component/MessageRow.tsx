@@ -14,17 +14,16 @@ export default (props: Props) => {
         <Image
           borderRadius={3}
           style={styles.user_icon}
-          source={{
-            uri: props.message.userIcon,
-          }}
+          //TODO fix URL
+          source={require('../../assets/avatar.jpg')}
         />
       </View>
       <View style={styles.right_container}>
         <View style={styles.status_container}>
-          <Text style={styles.user_name}>{props.message.userName}</Text>
-          <Text style={styles.posted_at}>{moment(props.message.postedAt).format('LT')}</Text>
+          <Text style={styles.user_name}>{props.message.nickname}</Text>
+          <Text style={styles.posted_at}>{moment(props.message.created_at).format('LT')}</Text>
         </View>
-        <Text>{props.message.plainText}</Text>
+        <Text>{props.message.message}</Text>
       </View>
     </View>
   );
