@@ -31,14 +31,6 @@ export default class LoginScreen extends React.Component<Props> {
   static routeName = '/LoginScreen';
   private userName: string = '名無しさん';
 
-  constructor(props: Props) {
-    super(props);
-    const data = ':pole message ["general","waiwai"]';
-    // const match = data.match(/\:(\w+)\s(\w+)\s\[\"(\w+)\"\,\"(\w+)\"]/);
-    const match = data.match(/\:(\w+)\s(\w+)\s(.+)/);
-    console.log(match);
-  }
-
   render() {
     return (
       <ScrollView style={styles.background}>
