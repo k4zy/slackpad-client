@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View } from 'react-native';
+import { View, KeyboardAvoidingView } from 'react-native';
 import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
 import MessageLogList from '../component/MessageLogList';
 import MessageInputBox from '../component/MessageInputBox';
@@ -34,8 +34,15 @@ export default class HomeScreen extends React.Component<Props, State> {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <MessageLogList />
-        <MessageInputBox navigation={this.props.navigation} />
+        <KeyboardAvoidingView
+          keyboardVerticalOffset={75}
+          behavior="position"
+          style={{ flex: 1 }}
+          contentContainerStyle={{ flex: 1 }}
+        >
+          <MessageLogList />
+          <MessageInputBox navigation={this.props.navigation} />
+        </KeyboardAvoidingView>
       </View>
     );
   }

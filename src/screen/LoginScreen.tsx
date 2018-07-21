@@ -10,6 +10,7 @@ import {
   ViewStyle,
   TextStyle,
   ImageStyle,
+  ScrollView,
 } from 'react-native';
 import {
   NavigationScreenProp,
@@ -40,18 +41,20 @@ export default class LoginScreen extends React.Component<Props> {
 
   render() {
     return (
-      <KeyboardAvoidingView style={styles.background} behavior="padding">
-        <Image style={styles.image} source={require('../../assets/cookpad.png')} />
-        <Text style={styles.title}>Slackpadにようこそ!</Text>
-        <TextInput
-          style={styles.input}
-          selectionColor="#FF9933"
-          underlineColorAndroid="#FF9933"
-          placeholder="名前を入力して下さい"
-          onChangeText={text => (this.userName = text)}
-        />
-        <Button title="ログイン" color="#FF9933" onPress={this.navigateHomeWithoutStack} />
-      </KeyboardAvoidingView>
+      <ScrollView style={styles.background}>
+        <KeyboardAvoidingView keyboardVerticalOffset={75} behavior="position">
+          <Image style={styles.image} source={require('../../assets/cookpad.png')} />
+          <Text style={styles.title}>Slackpadにようこそ!</Text>
+          <TextInput
+            style={styles.input}
+            selectionColor="#FF9933"
+            underlineColorAndroid="#FF9933"
+            placeholder="名前を入力して下さい"
+            onChangeText={text => (this.userName = text)}
+          />
+          <Button title="ログイン" color="#FF9933" onPress={this.navigateHomeWithoutStack} />
+        </KeyboardAvoidingView>
+      </ScrollView>
     );
   }
 
