@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 // import { Camera, Permissions } from 'expo';
@@ -17,34 +17,36 @@ export default class MessageInputBox extends React.Component<Props> {
     const params = this.props.navigation.state.params;
     const channelName = params.channelName ? params.channelName : '#general';
     return (
-      <View style={styles.message_box_container}>
-        <TouchableOpacity
-          onPress={() => {
-            this.props.navigation.navigate(CameraScreen.routeName);
-          }}
-          style={{
-            justifyContent: 'center',
-            alignContent: 'center',
-          }}
-        >
-          <Ionicons name="md-camera" size={28} color="#2d2d2d" style={styles.action_icon} />
-        </TouchableOpacity>
-        <TextInput
-          selectionColor="#FF9933"
-          underlineColorAndroid="#FF9933"
-          style={styles.message_input_area}
-          onChangeText={text => (this.message = text)}
-          placeholder={`${channelName}に投稿する`}
-        />
-        <TouchableOpacity
-          onPress={async () => {
-            //Todo: ちゃんと引数を渡す
-            MessageRepo.post(this.message, 'genaral');
-          }}
-          style={{ justifyContent: 'center', alignContent: 'center' }}
-        >
-          <Ionicons name="md-send" size={28} color="#2d2d2d" style={styles.action_icon} />
-        </TouchableOpacity>
+      <View>
+        <KeyboardAvoidingView style={styles.message_box_container} behavior="padding">
+          <TouchableOpacity
+            onPress={() => {
+              this.props.navigation.navigate(CameraScreen.routeName);
+            }}
+            style={{
+              justifyContent: 'center',
+              alignContent: 'center',
+            }}
+          >
+            <Ionicons name="md-camera" size={28} color="#2d2d2d" style={styles.action_icon} />
+          </TouchableOpacity>
+          <TextInput
+            selectionColor="#FF9933"
+            underlineColorAndroid="#FF9933"
+            style={styles.message_input_area}
+            onChangeText={text => (this.message = text)}
+            placeholder={`${channelName}に投稿する`}
+          />
+          <TouchableOpacity
+            onPress={async () => {
+              //Todo: ちゃんと引数を渡す
+              MessageRepo.post('general', this.message);
+            }}
+            style={{ justifyContent: 'center', alignContent: 'center' }}
+          >
+            <Ionicons name="md-send" size={28} color="#2d2d2d" style={styles.action_icon} />
+          </TouchableOpacity>
+        </KeyboardAvoidingView>
       </View>
     );
   }

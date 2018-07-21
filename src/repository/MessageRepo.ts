@@ -1,7 +1,6 @@
 import ApiClient from './ApiClient';
 import MessageStream from './MessageStream';
 export interface Message {
-  id: number;
   nickname: string;
   message: string;
   created_at: string;

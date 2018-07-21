@@ -2,6 +2,7 @@ import * as React from 'react';
 import { View, FlatList, StyleSheet, Platform } from 'react-native';
 import MessageRow from './MessageRow';
 import MessageRepo, { Message } from '../repository/MessageRepo';
+import MessageStream from '../repository/MessageStream';
 
 interface Props {}
 
@@ -20,6 +21,19 @@ export default class MessageLogList extends React.Component<Props, State> {
     this.state = { messages: [] };
   }
 
+  componentDidMount() {
+    MessageStream.addListener({
+      onMessage: message => {
+        console.log('onReceive message in component');
+        this.setState({ messages: [message, ...this.state.messages] });
+      },
+    });
+  }
+
+  componentWillMount() {
+    MessageStream.clearListener();
+  }
+
   componentWillReceiveProps(props: Props) {
     this.fetch();
   }
@@ -33,9 +47,10 @@ export default class MessageLogList extends React.Component<Props, State> {
     return (
       <FlatList
         style={styles.chat_list}
-        keyExtractor={(item: Message, index: number) => `${index}=${item.id}`}
+        keyExtractor={(item: Message, index: number) => `${index}=${item.message}`}
         showsVerticalScrollIndicator={false}
         removeClippedSubviews={Platform.select({ android: true, ios: false })}
+        inverted={true}
         data={this.state.messages}
         renderItem={this.renderCell}
       />
