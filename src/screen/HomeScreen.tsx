@@ -13,7 +13,7 @@ interface Props {
 
 interface State {
   userName: string;
-  channel?: string;
+  channel: string;
 }
 
 export default class HomeScreen extends React.Component<Props, State> {
@@ -27,7 +27,7 @@ export default class HomeScreen extends React.Component<Props, State> {
       const channel: string = params.channel;
       this.state = { channel, userName };
     } else {
-      this.state = { channel: '#genaral', userName };
+      this.state = { channel: 'general', userName };
     }
   }
 
@@ -41,7 +41,7 @@ export default class HomeScreen extends React.Component<Props, State> {
           contentContainerStyle={{ flex: 1 }}
         >
           <MessageLogList />
-          <MessageInputBox navigation={this.props.navigation} />
+          <MessageInputBox channel={this.state.channel} navigation={this.props.navigation} />
         </KeyboardAvoidingView>
       </View>
     );

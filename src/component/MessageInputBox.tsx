@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity, Keyboard } from 'react-native';
 import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 // import { Camera, Permissions } from 'expo';
@@ -8,10 +8,12 @@ import MessageRepo from '../repository/MessageRepo';
 
 interface Props {
   navigation: NavigationScreenProp<NavigationRoute<any>, any>;
+  channel: string;
 }
 
 export default class MessageInputBox extends React.Component<Props> {
   private message: string = '';
+  private textInput: TextInput | null = null;
 
   render() {
     const params = this.props.navigation.state.params;
@@ -34,12 +36,18 @@ export default class MessageInputBox extends React.Component<Props> {
           underlineColorAndroid="#FF9933"
           style={styles.message_input_area}
           onChangeText={text => (this.message = text)}
+          ref={_textInput => {
+            this.textInput = _textInput;
+          }}
           placeholder={`${channelName}に投稿する`}
         />
         <TouchableOpacity
           onPress={async () => {
-            //Todo: ちゃんと引数を渡す
-            MessageRepo.post('general', this.message);
+            MessageRepo.post(this.props.channel, this.message);
+            if (this.textInput) {
+              this.textInput.clear();
+            }
+            Keyboard.dismiss();
           }}
           style={{ justifyContent: 'center', alignContent: 'center' }}
         >
