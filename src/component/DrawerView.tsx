@@ -38,13 +38,7 @@ export default class DrawerView extends React.Component<Props, State> {
     return (
       <View style={styles.root_container}>
         <View style={styles.workspace_container}>
-          <Image
-            style={{ width: 30, height: 30 }}
-            source={{
-              uri:
-                'https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2016-04-13/34302871409_9799185b8d4e529cb8c4_132.png',
-            }}
-          />
+          <Image style={{ width: 30, height: 30 }} source={require('../../assets/small.png')} />
           <Text style={styles.workspace_text}>cookpad workspace</Text>
         </View>
         <View style={styles.channel_container}>
