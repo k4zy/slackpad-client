@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {
+  Alert,
   KeyboardAvoidingView,
   TextInput,
   Text,
@@ -19,7 +20,7 @@ import {
   NavigationActions,
 } from 'react-navigation';
 import HomeScreen from '../screen/HomeScreen';
-import MessageStream from '../repository/MessageStream';
+import MessageStream, { Reply, StreamListener } from '../repository/MessageStream';
 
 type Navigation = NavigationScreenProp<NavigationRoute<any>, any>;
 
@@ -30,6 +31,30 @@ interface Props {
 export default class LoginScreen extends React.Component<Props> {
   static routeName = '/LoginScreen';
   private userName: string = '名無しさん';
+
+  private streamListener: StreamListener = {
+    onError: (error: Error) => {
+      Alert.alert('Error Received', error.message);
+    },
+    onReceiveReply: (reply: Reply) => {
+      if (reply.command === 'join') {
+        const params = { userName: this.userName };
+        const resetAction = StackActions.reset({
+          index: 0,
+          actions: [NavigationActions.navigate({ routeName: HomeScreen.routeName, params })],
+        });
+        this.props.navigation.dispatch(resetAction);
+      }
+    },
+  };
+
+  componentDidMount() {
+    MessageStream.addListener(this.streamListener);
+  }
+
+  componentWillUnmount() {
+    MessageStream.removeListener(this.streamListener);
+  }
 
   render() {
     return (
@@ -51,13 +76,7 @@ export default class LoginScreen extends React.Component<Props> {
   }
 
   private navigateHomeWithoutStack = () => {
-    const params = { userName: this.userName };
     MessageStream.join(this.userName);
-    const resetAction = StackActions.reset({
-      index: 0,
-      actions: [NavigationActions.navigate({ routeName: HomeScreen.routeName, params })],
-    });
-    this.props.navigation.dispatch(resetAction);
   };
 }
 

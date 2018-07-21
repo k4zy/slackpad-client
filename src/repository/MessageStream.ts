@@ -2,11 +2,13 @@ import { API_ENDPOINT } from './Endpoint';
 import { Message } from './MessageRepo';
 import { format, parse } from 'date-fns';
 
-interface StreamListener {
-  onMessage: (message: Message) => void;
+export interface StreamListener {
+  onReceiveMessage?: (message: Message) => void;
+  onReceiveReply?: (reply: Reply) => void;
+  onError?: (error: Error) => void;
 }
 
-interface Reply {
+export interface Reply {
   prefix: string;
   command: string;
   params: string;
@@ -34,6 +36,14 @@ class MessageStream {
         case 'message':
           this.handleMessageCommand(reply);
           break;
+        case 'error':
+          this.handleErrorCommand(reply);
+          break;
+        case 'user':
+        case 'join':
+        case 'part':
+          this.handleGeneralCommand(reply);
+          break;
       }
     };
     websocket.onerror = e => {
@@ -45,7 +55,7 @@ class MessageStream {
     };
   };
 
-  private convertToReply(event: any): Reply | null {
+  private convertToReply = (event: any): Reply | null => {
     console.log(`ws:${event.data}`);
     const data = event.data as string;
     const match = data.match(/\:(\w+)\s(\w+)\s(.+)/);
@@ -55,10 +65,11 @@ class MessageStream {
     }
     const [_, prefix, command, params] = match;
     return { prefix, command, params };
-  }
+  };
 
-  private handleMessageCommand(reply: Reply) {
-    const match = reply.params.match(/\[\"(\w+)\"\,\"(.+)\"\]/);
+  private handleMessageCommand = (reply: Reply) => {
+    //:olive message ["general","hello world!"]
+    const match = reply.params.match(/\[\"(.+)\"\,\"(.+)\"\]/);
     if (match === null) {
       return;
     }
@@ -68,17 +79,41 @@ class MessageStream {
       created_at: format(new Date()),
     };
     this.listeners.forEach(listener => {
-      listener.onMessage(response);
+      if (listener.onReceiveMessage) {
+        listener.onReceiveMessage(response);
+      }
     });
-  }
+  };
 
-  addListener(listener: StreamListener) {
+  private handleGeneralCommand = (reply: Reply) => {
+    this.listeners.forEach(listener => {
+      if (listener.onReceiveReply) {
+        listener.onReceiveReply(reply);
+      }
+    });
+  };
+
+  private handleErrorCommand = (reply: Reply) => {
+    //:slackpad error ["Duplicated nickname: kazy"]
+    const match = reply.params.match(/\[\"(.+)\"\]/);
+    if (match === null) {
+      return;
+    }
+    this.listeners.forEach(listener => {
+      if (listener.onError) {
+        listener.onError(new Error(match[1]));
+      }
+    });
+  };
+
+  addListener = (listener: StreamListener) => {
     this.listeners.push(listener);
-  }
+  };
 
-  clearListener() {
-    this.listeners.length = 0;
-  }
+  removeListener = (listener: StreamListener) => {
+    const index = this.listeners.indexOf(listener);
+    if (index !== -1) this.listeners.splice(index, 1);
+  };
 
   sendMessage = (channel: string, message: string) => {
     const data = `message ["${channel}", "${message}"]`;

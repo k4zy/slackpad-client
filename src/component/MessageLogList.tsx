@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, FlatList, StyleSheet, Platform } from 'react-native';
 import MessageRow from './MessageRow';
 import MessageRepo, { Message } from '../repository/MessageRepo';
-import MessageStream from '../repository/MessageStream';
+import MessageStream, { StreamListener } from '../repository/MessageStream';
 
 interface Props {}
 
@@ -15,6 +15,12 @@ export default class MessageLogList extends React.Component<Props, State> {
     return <MessageRow message={item} />;
   };
 
+  private streamListener: StreamListener = {
+    onReceiveMessage: message => {
+      this.setState({ messages: [message, ...this.state.messages] });
+    },
+  };
+
   constructor(props: Props) {
     super(props);
     this.fetch();
@@ -22,16 +28,11 @@ export default class MessageLogList extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    MessageStream.addListener({
-      onMessage: message => {
-        console.log('onReceive message in component');
-        this.setState({ messages: [message, ...this.state.messages] });
-      },
-    });
+    MessageStream.addListener(this.streamListener);
   }
 
   componentWillMount() {
-    MessageStream.clearListener();
+    MessageStream.removeListener(this.streamListener);
   }
 
   componentWillReceiveProps(props: Props) {
