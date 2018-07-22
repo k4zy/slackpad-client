@@ -11,7 +11,6 @@ export interface Photo {
 export default class PhotoRepo {
   static post = async (picture: PictureResponse): Promise<Photo> => {
     const data = { data: picture.base64, filename: 'image.jpg' };
-    console.log(data);
     return await ApiClient.post<Photo>('images', JSON.stringify(data));
   };
 }

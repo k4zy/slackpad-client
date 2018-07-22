@@ -18,7 +18,6 @@ interface State {
 }
 
 export default class MessageInputBox extends React.Component<Props, State> {
-  // private message: string = '';
   private textInput: TextInput | null = null;
 
   constructor(props: Props) {
@@ -30,8 +29,7 @@ export default class MessageInputBox extends React.Component<Props, State> {
     if (props.photo) {
       const url = `${API_ENDPOINT}/images${props.photo.id}`;
       this.setState({
-        message: `${this.state.message} 
-      ${url}`,
+        message: `${this.state.message} ${url}`,
       });
     }
   }
