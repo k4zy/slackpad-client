@@ -3,6 +3,7 @@ import { View, KeyboardAvoidingView } from 'react-native';
 import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
 import MessageLogList from '../component/MessageLogList';
 import MessageInputBox from '../component/MessageInputBox';
+import { Photo } from '../repository/PhotoRepo';
 
 type Navigation = NavigationScreenProp<NavigationRoute<any>, any>;
 
@@ -32,6 +33,7 @@ export default class HomeScreen extends React.Component<Props, State> {
   }
 
   render() {
+    const photo = this.props.navigation.state.params.photo;
     return (
       <View style={{ flex: 1 }}>
         <KeyboardAvoidingView
@@ -41,7 +43,11 @@ export default class HomeScreen extends React.Component<Props, State> {
           contentContainerStyle={{ flex: 1 }}
         >
           <MessageLogList />
-          <MessageInputBox channel={this.state.channel} navigation={this.props.navigation} />
+          <MessageInputBox
+            photo={photo}
+            channel={this.state.channel}
+            navigation={this.props.navigation}
+          />
         </KeyboardAvoidingView>
       </View>
     );

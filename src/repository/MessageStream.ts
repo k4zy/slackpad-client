@@ -1,4 +1,4 @@
-import { API_ENDPOINT } from './Endpoint';
+import { ENDPOINT_IP } from './Endpoint';
 import { Message } from './MessageRepo';
 import { format, parse } from 'date-fns';
 
@@ -19,7 +19,7 @@ class MessageStream {
   listeners: StreamListener[] = [];
 
   constructor() {
-    this.websocket = new WebSocket(`ws://52.69.58.22/ws`);
+    this.websocket = new WebSocket(`ws://${ENDPOINT_IP}/ws`);
     this.bindingEventCycle(this.websocket);
   }
 

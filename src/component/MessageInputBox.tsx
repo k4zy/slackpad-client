@@ -1,19 +1,40 @@
 import * as React from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity, Keyboard } from 'react-native';
+import { Alert, View, TextInput, StyleSheet, TouchableOpacity, Keyboard } from 'react-native';
 import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
-// import { Camera, Permissions } from 'expo';
 import CameraScreen from '../screen/CameraScreen';
 import MessageRepo from '../repository/MessageRepo';
+import { Photo } from '../repository/PhotoRepo';
+import { API_ENDPOINT } from '../repository/Endpoint';
 
 interface Props {
   navigation: NavigationScreenProp<NavigationRoute<any>, any>;
   channel: string;
+  photo?: Photo;
 }
 
-export default class MessageInputBox extends React.Component<Props> {
-  private message: string = '';
+interface State {
+  message: string;
+}
+
+export default class MessageInputBox extends React.Component<Props, State> {
+  // private message: string = '';
   private textInput: TextInput | null = null;
+
+  constructor(props: Props) {
+    super(props);
+    this.state = { message: '' };
+  }
+
+  componentWillReceiveProps(props: Props) {
+    if (props.photo) {
+      const url = `${API_ENDPOINT}/images${props.photo.id}`;
+      this.setState({
+        message: `${this.state.message} 
+      ${url}`,
+      });
+    }
+  }
 
   render() {
     const params = this.props.navigation.state.params;
@@ -35,17 +56,23 @@ export default class MessageInputBox extends React.Component<Props> {
           selectionColor="#FF9933"
           underlineColorAndroid="#FF9933"
           style={styles.message_input_area}
-          onChangeText={text => (this.message = text)}
+          onChangeText={message => this.setState({ message })}
           ref={_textInput => {
             this.textInput = _textInput;
           }}
           placeholder={`${channelName}に投稿する`}
+          value={this.state.message}
         />
         <TouchableOpacity
           onPress={async () => {
-            MessageRepo.post(this.props.channel, this.message);
+            if (this.state.message.length === 0) {
+              Alert.alert('バリデーションエラー', 'メッセージを入力して下さい');
+              return;
+            }
+            MessageRepo.post(this.props.channel, this.state.message);
             if (this.textInput) {
               this.textInput.clear();
+              this.setState({ message: '' });
             }
             Keyboard.dismiss();
           }}

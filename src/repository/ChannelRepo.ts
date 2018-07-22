@@ -1,4 +1,3 @@
-import { API_ENDPOINT } from './Endpoint';
 import { Channel } from './ChannelRepo';
 import ApiClient from './ApiClient';
 

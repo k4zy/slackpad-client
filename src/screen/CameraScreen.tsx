@@ -1,8 +1,17 @@
 import * as React from 'react';
 import { Text, View, TouchableOpacity, CameraRoll } from 'react-native';
 import { Camera, Permissions, CameraObject } from 'expo';
+import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
+import PhotoRepo from '../repository/PhotoRepo';
+import HomeScreen from './HomeScreen';
 
-export default class CameraScreen extends React.Component {
+type Navigation = NavigationScreenProp<NavigationRoute<any>, any>;
+
+interface Props {
+  navigation: Navigation;
+}
+
+export default class CameraScreen extends React.Component<Props> {
   static routeName = '/CameraScreen';
   state = {
     hasCameraPermission: null,
@@ -28,7 +37,6 @@ export default class CameraScreen extends React.Component {
           <Camera
             style={{ flex: 1 }}
             type={Camera.Constants.Type.back}
-            // ref={this.camera}
             ref={(camera: any) => {
               this.camera = camera;
             }}
@@ -47,13 +55,17 @@ export default class CameraScreen extends React.Component {
                   height: 80,
                   justifyContent: 'center',
                   alignContent: 'center',
-                  backgroundColor: '#62b5a5',
+                  backgroundColor: '#FF9933',
                 }}
                 onPress={async () => {
                   if (this.camera) {
-                    const picture = await this.camera.takePictureAsync({});
-                    const imageUri = await CameraRoll.saveToCameraRoll(picture.uri, 'photo');
-                    console.log(imageUri);
+                    const picture = await this.camera.takePictureAsync({
+                      quality: 0.8,
+                      base64: true,
+                    } as any);
+                    const photo = await PhotoRepo.post(picture);
+                    const params = { photo };
+                    this.props.navigation.navigate(HomeScreen.routeName, params);
                   }
                 }}
               >
@@ -65,7 +77,7 @@ export default class CameraScreen extends React.Component {
                     color: 'white',
                   }}
                 >
-                  Shoot
+                  撮影する
                 </Text>
               </TouchableOpacity>
             </View>
