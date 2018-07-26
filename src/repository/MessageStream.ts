@@ -1,6 +1,6 @@
 import { ENDPOINT_IP } from './Endpoint';
 import { Message } from './MessageRepo';
-import { format, parse } from 'date-fns';
+import { format } from 'date-fns';
 
 export interface StreamListener {
   onReceiveMessage?: (message: Message) => void;
@@ -28,6 +28,7 @@ class MessageStream {
       console.log('ws:onOpened');
     };
     websocket.onmessage = e => {
+      console.log(`ws:${e.data}`);
       const reply = this.convertToReply(e);
       if (reply === null) {
         return;
@@ -56,7 +57,6 @@ class MessageStream {
   };
 
   private convertToReply = (event: any): Reply | null => {
-    console.log(`ws:${event.data}`);
     const data = event.data as string;
     const match = data.match(/\:(\w+)\s(\w+)\s(.+)/);
     if (match === null) {
