@@ -62,7 +62,7 @@ export default class MessageInputBox extends React.Component<Props, State> {
           value={this.state.message}
         />
         <TouchableOpacity
-          onPress={async () => {
+          onPress={() => {
             if (this.state.message.length === 0) {
               Alert.alert('バリデーションエラー', 'メッセージを入力して下さい');
               return;

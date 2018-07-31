@@ -8,23 +8,19 @@
     "@types/react": "^16.4.6",
     "@types/react-native": "^0.55.26",
     "@types/react-navigation": "~2.0.9",
-    "foreman": "^3.0.1",
     "jest-expo": "~27.0.0",
     "react-native-scripts": "1.14.0",
+    "react-native-typescript-transformer": "^1.2.10",
     "react-test-renderer": "16.3.1",
-    "typescript": "~2.9.2"
+    "typescript": "^3.0.1"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
-    "start": "nf start",
-    "server": "react-native-scripts start",
+    "start": "react-native-scripts start",
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
-    "test": "jest",
-    "build": "tsc",
-    "build:watch": "tsc --watch",
-    "android:log": "node node_modules/react-native/local-cli/cli.js log-android"
+    "test": "jest"
   },
   "jest": {
     "preset": "jest-expo"
