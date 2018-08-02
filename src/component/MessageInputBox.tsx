@@ -1,10 +1,17 @@
 import * as React from 'react';
-import { Alert, View, TextInput, StyleSheet, TouchableOpacity, Keyboard } from 'react-native';
-import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
+import {
+  Alert,
+  View,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+  ViewStyle,
+  TextStyle,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { Color } from '../Theme';
 
 interface Props {
-  navigation: NavigationScreenProp<NavigationRoute<any>, any>;
   channel: string;
 }
 
@@ -22,11 +29,11 @@ export default class MessageInputBox extends React.Component<Props, State> {
 
   render() {
     return (
-      <View style={styles.message_box_container}>
+      <View style={styles.container}>
         <TextInput
-          selectionColor="#FF9933"
-          underlineColorAndroid="#FF9933"
-          style={styles.message_input_area}
+          selectionColor={Color.orange}
+          underlineColorAndroid={Color.orange}
+          style={styles.messageInput}
           onChangeText={message => this.setState({ message })}
           ref={_textInput => (this.textInput = _textInput)}
           placeholder={`${this.props.channel}に投稿する`}
@@ -34,41 +41,43 @@ export default class MessageInputBox extends React.Component<Props, State> {
         />
         <TouchableOpacity
           onPress={() => {
-            if (this.state.message.length === 0) {
-              Alert.alert('バリデーションエラー', 'メッセージを入力して下さい');
-              return;
-            }
             Alert.alert('未実装', 'メッセージを送信する実装に置き換えてください');
-            if (this.textInput) {
-              this.textInput.clear();
-              this.setState({ message: '' });
-            }
-            Keyboard.dismiss();
           }}
-          style={{ justifyContent: 'center', alignContent: 'center' }}
+          style={styles.buttonWrapper}
         >
-          <Ionicons name="md-send" size={28} color="#2d2d2d" style={styles.action_icon} />
+          <Ionicons name="md-send" size={28} color={Color.darkGray} style={styles.submitButton} />
         </TouchableOpacity>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  message_box_container: {
+interface Styles {
+  container: ViewStyle;
+  buttonWrapper: ViewStyle;
+  submitButton: ViewStyle;
+  messageInput: TextStyle;
+}
+
+const styles = StyleSheet.create<Styles>({
+  container: {
     flexDirection: 'row',
-    backgroundColor: '#fff',
-    paddingHorizontal: 5,
+    backgroundColor: Color.white,
+    paddingHorizontal: 8,
     elevation: 4,
-    height: 50,
+    height: 48,
   },
-  action_icon: {
-    paddingHorizontal: 5,
+  buttonWrapper: {
+    justifyContent: 'center',
+    alignContent: 'center',
   },
-  message_input_area: {
-    paddingHorizontal: 5,
+  submitButton: {
+    paddingHorizontal: 4,
+  },
+  messageInput: {
+    paddingHorizontal: 4,
     flex: 1,
     textAlign: 'left',
-    color: '#a0a0a1',
+    color: Color.darkGray,
   },
 });
