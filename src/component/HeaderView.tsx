@@ -11,7 +11,7 @@ interface Props {
 export default (props: Props) => {
   const navigation = props.navigation;
   const params = props.navigation.state.params;
-  const channelName = params.channelName ? params.channelName : '#general';
+  const channelName = params && params.channelName ? params.channelName : '#general';
   return (
     <View style={styles.header_container}>
       <TouchableHighlight

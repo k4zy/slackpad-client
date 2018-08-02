@@ -36,7 +36,7 @@ export default class MessageInputBox extends React.Component<Props, State> {
 
   render() {
     const params = this.props.navigation.state.params;
-    const channelName = params.channelName ? params.channelName : '#general';
+    const channelName = params && params.channelName ? params.channelName : '#general';
     return (
       <View style={styles.message_box_container}>
         <TouchableOpacity

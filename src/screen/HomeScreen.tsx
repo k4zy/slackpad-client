@@ -23,7 +23,7 @@ export default class HomeScreen extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     const params = props.navigation.state.params;
-    const userName = params.userName;
+    const userName = params && params.userName ? params.userName : 'kazy';
     if (params && params.channel) {
       const channel: string = params.channel;
       this.state = { channel, userName };
@@ -33,7 +33,8 @@ export default class HomeScreen extends React.Component<Props, State> {
   }
 
   render() {
-    const photo = this.props.navigation.state.params.photo;
+    const params = this.props.navigation.state.params;
+    const photo = params && params.photo ? params.photo : undefined;
     return (
       <View style={{ flex: 1 }}>
         <KeyboardAvoidingView
