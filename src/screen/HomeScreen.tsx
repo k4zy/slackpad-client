@@ -3,7 +3,6 @@ import { View, KeyboardAvoidingView } from 'react-native';
 import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
 import MessageLogList from '../component/MessageLogList';
 import MessageInputBoxWithCamera from '../component/MessageInputBoxWithCamera';
-import { Photo } from '../repository/PhotoRepo';
 
 type Navigation = NavigationScreenProp<NavigationRoute<any>, any>;
 
