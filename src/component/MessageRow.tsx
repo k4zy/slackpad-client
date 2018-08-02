@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import NameIcon from './NameIcon';
 import { Message } from '../repository/MessageRepo';
 import { format, parse } from 'date-fns';
 
@@ -10,14 +11,7 @@ interface Props {
 export default (props: Props) => {
   return (
     <View style={styles.root_container}>
-      <View style={{ justifyContent: 'center' }}>
-        <Image
-          borderRadius={3}
-          style={styles.user_icon}
-          //TODO fix URL
-          source={require('../../assets/avatar.jpg')}
-        />
-      </View>
+      <NameIcon nickname={props.message.nickname} />
       <View style={styles.right_container}>
         <View style={styles.status_container}>
           <Text style={styles.user_name}>{props.message.nickname}</Text>
@@ -36,12 +30,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   right_container: {
+    flex: 1,
+    flexDirection: 'column',
     paddingLeft: 15,
-    // flex: 1,
-    // flexDirection: 'column',
   },
   status_container: {
-    // flex: 1,
     flexDirection: 'row',
   },
 
