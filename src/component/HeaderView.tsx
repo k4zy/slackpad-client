@@ -11,7 +11,7 @@ interface Props {
 export default (props: Props) => {
   const navigation = props.navigation;
   const params = props.navigation.state.params;
-  const channelName = params && params.channelName ? params.channelName : '#general';
+  const channelName = params && params.channelName ? params.channelName : 'general';
   return (
     <View style={styles.header_container}>
       <TouchableHighlight
@@ -21,7 +21,7 @@ export default (props: Props) => {
       >
         <Ionicons name="md-menu" size={28} color="#eee" />
       </TouchableHighlight>
-      <Text style={styles.header_text}>{channelName}</Text>
+      <Text style={styles.header_text}>#{channelName}</Text>
     </View>
   );
 };
