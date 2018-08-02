@@ -1,0 +1,17 @@
+export enum Color {
+  green = '#8bad00',
+  yellow = '#ffaa00',
+  orange = '#ff7f00',
+  lightOrange = '#ffa54c',
+  red = '#ef6074',
+  black = '#484432',
+  darkGray = '#7b7769',
+  gray = '#a3a090',
+  blue = '#007aff',
+  noticeRed = '#e5303d',
+  lightBrown = '#cca17f',
+  border = '#dbdbce',
+  buttonGray = '#e5e5df',
+  ivory = '#faf9f7',
+  white = '#ffffff',
+}
