@@ -40,7 +40,7 @@ export default class MessageLogList extends React.Component<Props, State> {
   }
 
   async fetch() {
-    const messages = await MessageRepo.fetch(1);
+    const messages = await MessageRepo.fetch(101); // 101 as #general
     this.setState({ messages });
   }
 
