@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
+import Channel from '../model/Channel';
 import MessageLogList from '../component/MessageLogList';
 import MessageInputBoxWithCamera from '../component/MessageInputBoxWithCamera';
 
@@ -8,12 +9,12 @@ type Navigation = NavigationScreenProp<NavigationRoute<any>, any>;
 
 interface Props {
   navigation: Navigation;
-  channel?: string;
+  channel?: Channel;
 }
 
 interface State {
   userName: string;
-  channel: string;
+  channel: Channel;
 }
 
 export default class HomeScreen extends React.Component<Props, State> {
@@ -24,22 +25,24 @@ export default class HomeScreen extends React.Component<Props, State> {
     const params = props.navigation.state.params;
     const userName = params && params.userName ? params.userName : 'kazy';
     if (params && params.channel) {
-      const channel: string = params.channel;
+      const channel = params.channel;
       this.state = { channel, userName };
     } else {
-      this.state = { channel: 'general', userName };
+      this.state = { channel: { id: 101, name: 'general' }, userName };
     }
   }
 
   render() {
     const params = this.props.navigation.state.params;
     const photo = params && params.photo ? params.photo : undefined;
+    const channel = params && params.channel ? params.channel : this.state.channel;
+    console.log(JSON.stringify(channel));
     return (
       <View style={{ flex: 1 }}>
-        <MessageLogList />
+        <MessageLogList channel={channel} />
         <MessageInputBoxWithCamera
           photo={photo}
-          channel={this.state.channel}
+          channel={channel}
           navigation={this.props.navigation}
         />
       </View>

@@ -10,9 +10,10 @@ import {
   ViewStyle,
   TextStyle,
 } from 'react-native';
-import ChannelRepo, { Channel } from '../repository/ChannelRepo';
+import ChannelRepo from '../repository/ChannelRepo';
 import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
 import HomeScreen from '../screen/HomeScreen';
+import Channel from '../model/Channel';
 type Navigation = NavigationScreenProp<NavigationRoute<any>, any>;
 
 interface Props {
@@ -62,8 +63,7 @@ export default class DrawerView extends React.Component<Props, State> {
         underlayColor="#62b5a5"
         onPress={() => {
           this.props.navigation.toggleDrawer();
-          // Todo: pass userName
-          const params = { userName: 'kazy', channelName: item.name };
+          const params = { channel: item };
           this.props.navigation.navigate({ routeName: HomeScreen.routeName, params });
           console.log(item.name);
         }}

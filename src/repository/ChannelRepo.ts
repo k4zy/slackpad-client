@@ -1,12 +1,5 @@
-import { Channel } from './ChannelRepo';
+import Channel from '../model/Channel';
 import ApiClient from './ApiClient';
-
-export interface Channel {
-  id: number;
-  name: string;
-  created_at: string;
-  updated_at: string;
-}
 
 export default class ChannelRepo {
   static fetchChannels = async (): Promise<Channel[]> => {

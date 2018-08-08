@@ -5,11 +5,12 @@ import { Ionicons } from '@expo/vector-icons';
 import CameraScreen from '../screen/CameraScreen';
 import MessageRepo from '../repository/MessageRepo';
 import { Photo } from '../repository/PhotoRepo';
+import Channel from '../model/Channel';
 import { API_ENDPOINT } from '../repository/Endpoint';
 
 interface Props {
   navigation: NavigationScreenProp<NavigationRoute<any>, any>;
-  channel: string;
+  channel: Channel;
   photo?: Photo;
 }
 
@@ -36,7 +37,7 @@ export default class MessageInputBox extends React.Component<Props, State> {
 
   render() {
     const params = this.props.navigation.state.params;
-    const channelName = params && params.channelName ? params.channelName : '#general';
+    const channel = params && params.channel ? params.channel : this.props.channel;
     return (
       <View style={styles.message_box_container}>
         <TouchableOpacity
@@ -58,7 +59,7 @@ export default class MessageInputBox extends React.Component<Props, State> {
           ref={_textInput => {
             this.textInput = _textInput;
           }}
-          placeholder={`${channelName}に投稿する`}
+          placeholder={`${channel.name}に投稿する`}
           defaultValue={this.state.message}
         />
         <TouchableOpacity
@@ -67,7 +68,7 @@ export default class MessageInputBox extends React.Component<Props, State> {
               Alert.alert('バリデーションエラー', 'メッセージを入力して下さい');
               return;
             }
-            MessageRepo.post(this.props.channel, this.state.message);
+            MessageRepo.post(this.props.channel.name, this.state.message);
             if (this.textInput) {
               this.textInput.clear();
               this.setState({ message: '' });

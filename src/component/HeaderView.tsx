@@ -2,6 +2,7 @@ import * as React from 'react';
 import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
+import Channel from '../model/Channel';
 
 type Navigation = NavigationScreenProp<NavigationRoute<any>, any>;
 
@@ -10,8 +11,8 @@ interface Props {
 }
 export default (props: Props) => {
   const navigation = props.navigation;
-  const params = props.navigation.state.params;
-  const channelName = params && params.channelName ? params.channelName : 'general';
+  const params = navigation.state.params;
+  const channel: Channel = params && params.channel ? params.channel : { id: 101, name: 'general' };
   return (
     <View style={styles.header_container}>
       <TouchableHighlight
@@ -21,7 +22,7 @@ export default (props: Props) => {
       >
         <Ionicons name="md-menu" size={28} color="#eee" />
       </TouchableHighlight>
-      <Text style={styles.header_text}>#{channelName}</Text>
+      <Text style={styles.header_text}>#{channel.name}</Text>
     </View>
   );
 };

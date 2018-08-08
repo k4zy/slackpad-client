@@ -67,7 +67,8 @@ export default class LoginScreen extends React.Component<Props> {
           }}
           style={styles.textInput}
           placeholder="ハンドルネームを入力してくだいさい"
-          autoCapitalize={'none'}
+          autoCapitalize="none"
+          keyboardType="email-address"
           returnKeyType="done"
         />
         <TouchableOpacity

@@ -3,8 +3,11 @@ import { View, FlatList, StyleSheet, Platform } from 'react-native';
 import MessageRow from './MessageRow';
 import MessageRepo, { Message } from '../repository/MessageRepo';
 import MessageStream, { StreamListener } from '../repository/MessageStream';
+import Channel from '../model/Channel';
 
-interface Props {}
+interface Props {
+  channel: Channel;
+}
 
 interface State {
   messages: Message[];
@@ -35,12 +38,15 @@ export default class MessageLogList extends React.Component<Props, State> {
     MessageStream.removeListener(this.streamListener);
   }
 
-  componentWillReceiveProps(props: Props) {
-    this.fetch();
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.channel.id !== this.props.channel.id) {
+      this.fetch();
+    }
   }
 
   async fetch() {
-    const messages = await MessageRepo.fetch(101); // 101 as #general
+    console.log(`request_id: ${this.props.channel.id}`);
+    const messages = await MessageRepo.fetch(this.props.channel.id);
     this.setState({ messages });
   }
 
