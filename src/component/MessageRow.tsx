@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import NameIcon from './NameIcon';
-import { Message } from '../repository/MessageRepo';
+import Message from '../model/Message';
 import { format, parse } from 'date-fns';
 
 interface Props {
