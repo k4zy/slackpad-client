@@ -15,12 +15,11 @@ interface Props {
   channel: string;
 }
 
-interface State {
-  message: string;
-}
+interface State {}
 
 export default class MessageInputBox extends React.Component<Props, State> {
   private textInput: TextInput | null = null;
+  private message = '';
 
   constructor(props: Props) {
     super(props);
@@ -34,10 +33,9 @@ export default class MessageInputBox extends React.Component<Props, State> {
           selectionColor={Color.orange}
           underlineColorAndroid={Color.orange}
           style={styles.messageInput}
-          onChangeText={message => this.setState({ message })}
+          onChangeText={message => (this.message = message)}
           ref={_textInput => (this.textInput = _textInput)}
           placeholder={`${this.props.channel}に投稿する`}
-          value={this.state.message}
         />
         <TouchableOpacity
           onPress={() => {

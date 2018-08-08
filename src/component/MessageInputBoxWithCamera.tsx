@@ -59,7 +59,7 @@ export default class MessageInputBox extends React.Component<Props, State> {
             this.textInput = _textInput;
           }}
           placeholder={`${channelName}に投稿する`}
-          value={this.state.message}
+          defaultValue={this.state.message}
         />
         <TouchableOpacity
           onPress={() => {

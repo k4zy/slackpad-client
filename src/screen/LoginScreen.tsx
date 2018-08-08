@@ -1,17 +1,14 @@
 import * as React from 'react';
 import {
   Alert,
-  KeyboardAvoidingView,
   TextInput,
   Text,
   Image,
   View,
-  Button,
+  TouchableOpacity,
   StyleSheet,
   ViewStyle,
   TextStyle,
-  ImageStyle,
-  ScrollView,
 } from 'react-native';
 import {
   NavigationScreenProp,
@@ -21,6 +18,7 @@ import {
 } from 'react-navigation';
 import HomeScreen from '../screen/HomeScreen';
 import MessageStream, { Reply, StreamListener } from '../repository/MessageStream';
+import { Color } from '../Theme';
 
 type Navigation = NavigationScreenProp<NavigationRoute<any>, any>;
 
@@ -30,7 +28,7 @@ interface Props {
 
 export default class LoginScreen extends React.Component<Props> {
   static routeName = '/LoginScreen';
-  private userName: string = '名無しさん';
+  private nickname: string = '名無しさん';
 
   private streamListener: StreamListener = {
     onError: (error: Error) => {
@@ -38,7 +36,7 @@ export default class LoginScreen extends React.Component<Props> {
     },
     onReceiveReply: (reply: Reply) => {
       if (reply.command === 'join') {
-        const params = { userName: this.userName };
+        const params = { userName: this.nickname };
         const resetAction = StackActions.reset({
           index: 0,
           actions: [NavigationActions.navigate({ routeName: HomeScreen.routeName, params })],
@@ -58,57 +56,83 @@ export default class LoginScreen extends React.Component<Props> {
 
   render() {
     return (
-      <ScrollView style={styles.background}>
-        <KeyboardAvoidingView keyboardVerticalOffset={75} behavior="position">
-          <Image style={styles.image} source={require('../../assets/cookpad.png')} />
-          <Text style={styles.title}>Slackpadにようこそ!</Text>
-          <TextInput
-            style={styles.input}
-            selectionColor="#FF9933"
-            underlineColorAndroid="#FF9933"
-            placeholder="名前を入力して下さい"
-            onChangeText={text => (this.userName = text)}
-          />
-          <Button title="ログイン" color="#FF9933" onPress={this.navigateHomeWithoutStack} />
-        </KeyboardAvoidingView>
-      </ScrollView>
+      <View style={styles.container}>
+        <Image style={styles.logo} source={require('../../assets/cookpad.png')} />
+        <Text style={styles.text}>SlackPadにようこそ!</Text>
+        <TextInput
+          underlineColorAndroid={'transparent'}
+          selectionColor={Color.orange}
+          onChangeText={text => {
+            this.nickname = text;
+          }}
+          style={styles.textInput}
+          placeholder="ハンドルネームを入力してくだいさい"
+          autoCapitalize={'none'}
+          returnKeyType="done"
+        />
+        <TouchableOpacity
+          style={styles.buttonWrapper}
+          activeOpacity={0.6}
+          onPress={this.navigateHomeWithoutStack}
+        >
+          <Text style={styles.buttonText}>ログイン</Text>
+        </TouchableOpacity>
+      </View>
     );
   }
 
   private navigateHomeWithoutStack = () => {
-    MessageStream.join(this.userName);
+    MessageStream.join(this.nickname);
   };
 }
 
 interface Styles {
-  background: ViewStyle;
-  image: ImageStyle;
-  title: TextStyle;
-  input: TextStyle;
+  container: ViewStyle;
+  logo: ViewStyle;
+  text: TextStyle;
+  textInput: TextStyle;
+  buttonWrapper: ViewStyle;
+  buttonText: TextStyle;
 }
 
 const styles = StyleSheet.create<Styles>({
-  background: {
+  container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignContent: 'center',
-    paddingTop: 20,
-    paddingHorizontal: 30,
+    paddingHorizontal: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  image: {
-    alignSelf: 'center',
-    width: 220,
-    height: 220,
+  logo: {
+    width: 240,
+    height: 240,
   },
-  title: {
+  text: {
+    fontSize: 28,
+  },
+  textInput: {
+    marginTop: 32,
+    borderWidth: 1,
+    borderColor: Color.border,
+    borderRadius: 4,
+    width: '100%',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    color: Color.darkGray,
+    backgroundColor: Color.white,
+  },
+  buttonWrapper: {
+    marginTop: 8,
+    elevation: 4,
+    width: '100%',
+    borderRadius: 4,
+    backgroundColor: Color.lightOrange,
+  },
+  buttonText: {
+    paddingVertical: 8,
+    width: '100%',
+    color: Color.white,
     textAlign: 'center',
-    fontSize: 24,
-    color: '#3d3a39',
-  },
-  input: {
-    color: '#3d3a39',
     fontSize: 18,
-    paddingVertical: 10,
-    marginBottom: 16,
+    fontWeight: 'bold',
   },
 });

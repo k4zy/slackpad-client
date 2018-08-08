@@ -2,6 +2,7 @@
   "name": "slackpad-client",
   "version": "0.1.0",
   "private": true,
+  "main": "./index.expo.js",
   "devDependencies": {
     "@types/expo": "~27.0.5",
     "@types/expo__vector-icons": "^6.2.2",
@@ -14,7 +15,6 @@
     "react-test-renderer": "16.3.1",
     "typescript": "^3.0.1"
   },
-  "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
     "start": "react-native-scripts start",
     "eject": "react-native-scripts eject",

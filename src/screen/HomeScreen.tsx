@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, KeyboardAvoidingView } from 'react-native';
+import { View } from 'react-native';
 import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
 import MessageLogList from '../component/MessageLogList';
 import MessageInputBoxWithCamera from '../component/MessageInputBoxWithCamera';
@@ -36,19 +36,12 @@ export default class HomeScreen extends React.Component<Props, State> {
     const photo = params && params.photo ? params.photo : undefined;
     return (
       <View style={{ flex: 1 }}>
-        <KeyboardAvoidingView
-          keyboardVerticalOffset={75}
-          behavior="position"
-          style={{ flex: 1 }}
-          contentContainerStyle={{ flex: 1 }}
-        >
-          <MessageLogList />
-          <MessageInputBoxWithCamera
-            photo={photo}
-            channel={this.state.channel}
-            navigation={this.props.navigation}
-          />
-        </KeyboardAvoidingView>
+        <MessageLogList />
+        <MessageInputBoxWithCamera
+          photo={photo}
+          channel={this.state.channel}
+          navigation={this.props.navigation}
+        />
       </View>
     );
   }
