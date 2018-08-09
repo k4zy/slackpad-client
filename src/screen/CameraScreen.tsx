@@ -60,7 +60,7 @@ export default class CameraScreen extends React.Component<Props> {
                 onPress={async () => {
                   if (this.camera) {
                     const picture = await this.camera.takePictureAsync({
-                      quality: 0.8,
+                      quality: 0.4,
                       base64: true,
                     } as any);
                     const photo = await PhotoRepo.post(picture);
