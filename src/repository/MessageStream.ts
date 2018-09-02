@@ -24,11 +24,8 @@ class MessageStream {
   }
 
   bindingEventCycle = (websocket: WebSocket) => {
-    websocket.onopen = () => {
-      console.log('ws:onOpened');
-    };
+    websocket.onopen = () => {};
     websocket.onmessage = e => {
-      console.log(`ws:${e.data}`);
       const reply = this.convertToReply(e);
       if (reply === null) {
         return;
@@ -47,13 +44,9 @@ class MessageStream {
           break;
       }
     };
-    websocket.onerror = e => {
-      console.log(`ws:onError: ${e.returnValue}`);
-    };
+    websocket.onerror = e => {};
 
-    websocket.onclose = e => {
-      console.log('ws:onClosed');
-    };
+    websocket.onclose = e => {};
   };
 
   private convertToReply = (event: any): Reply | null => {
@@ -117,7 +110,6 @@ class MessageStream {
 
   sendMessage = (channel: string, message: string) => {
     const data = `message ["${channel}", "${message}"]`;
-    console.log(`sendMessage: ${data}`);
     this.websocket.send(data);
   };
 

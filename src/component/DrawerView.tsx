@@ -65,7 +65,6 @@ export default class DrawerView extends React.Component<Props, State> {
           this.props.navigation.toggleDrawer();
           const params = { channel: item };
           this.props.navigation.navigate({ routeName: HomeScreen.routeName, params });
-          console.log(item.name);
         }}
       >
         <Text style={styles.channel_name}>{item.name}</Text>

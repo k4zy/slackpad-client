@@ -45,7 +45,6 @@ export default class MessageLogList extends React.Component<Props, State> {
   }
 
   async fetch() {
-    console.log(`request_id: ${this.props.channel.id}`);
     const messages = await MessageRepo.fetch(this.props.channel.id);
     this.setState({ messages });
   }
