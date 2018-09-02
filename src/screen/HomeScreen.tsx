@@ -36,7 +36,6 @@ export default class HomeScreen extends React.Component<Props, State> {
     const params = this.props.navigation.state.params;
     const photo = params && params.photo ? params.photo : undefined;
     const channel = params && params.channel ? params.channel : this.state.channel;
-    console.log(JSON.stringify(channel));
     return (
       <View style={{ flex: 1 }}>
         <MessageLogList channel={channel} />
